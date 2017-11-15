@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlipAnimation.FlipAnimation"
+             xmlns:triggers="clr-namespace:FlipAnimation.Triggers"
+             Title="Login">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Opacity="1"
+                   Source="icon.png"
+                   Aspect="AspectFill"/>
+
+            <Grid>
+                <Grid.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <OnPlatform.iOS>
+                            0, 20, 0, 0
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            0, 0, 0, 0
+                        </OnPlatform.Android>
+                    </OnPlatform>
+                </Grid.Padding>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0">
+                    <Label Text="Login" 
+                           TextColor="White"
+                           HorizontalTextAlignment="Center" />
+                </StackLayout>
+                <StackLayout Grid.Row="1">
+                    <!--If you want to use Loader and Error Message so you can comment out this-->
+                    <!--<ActivityIndicator x:Name="actInd"
+                                       IsRunning="False"
+                                       IsVisible="False"
+                                       Color="Blue"
+                    />
+                    <Label x:Name="lblBusyMsg" 
+                           IsVisible="False" 
+                           Text="My Message" >
+                        <Label.Font>
+                            <OnPlatform x:TypeArguments="Font">
+                                <OnPlatform.iOS>Small</OnPlatform.iOS>
+                            </OnPlatform>
+                        </Label.Font>
+                    </Label>
+                    <Label x:Name="labelErrorMessage" 
+                           IsVisible="False"
+                           Text="MY Message"
+                           TextColor="Red">
+                        <Label.Font>
+                            <OnPlatform x:TypeArguments="Font">
+                                <OnPlatform.iOS>Small</OnPlatform.iOS>
+                            </OnPlatform>
+                        </Label.Font>
+                    </Label>-->
+                </StackLayout>
+
+                <StackLayout x:Name="stLog" 
+                             Grid.Row="1" Grid.Column="0" 
+                             IsVisible="True"
+                             Padding="20,20,20,20"
+                >
+                    <Entry Placeholder="Email" Text=""  />
+                    <Entry Placeholder="Password" Text="" 
+                           IsPassword="True"  />
+
+                    <Button Text="Login" Clicked="Login_Clicked" />
+                    <Button Text="Register" >
+                        <Button.Triggers>
+                            <EventTrigger Event="Clicked">
+                                <triggers:SwitchLayout SourceElement="stLog"
+                                                                      TargetElement="stReg"
+                                                                      Direction="Right" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Forgot Password">
+                        <Button.Triggers>
+                            <EventTrigger Event="Clicked">
+                                <triggers:SwitchLayout SourceElement="stLog" 
+                                                                      TargetElement="stForgotPass"
+                                                                      Direction="Right" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Change Password">
+                        <Button.Triggers>
+                            <EventTrigger Event="Clicked">
+                                <triggers:SwitchLayout SourceElement="stLog" 
+                                                                      TargetElement="stChangePass" 
+                                                                      Direction="Right" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </StackLayout>
+
+                <StackLayout x:Name="stReg" 
+                             Grid.Row="1" Grid.Column="0" 
+                             IsVisible="False"
+                             Padding="20,20,20,20"
+                >
+                    <Entry Placeholder="Email" Text=""   />
+                    <Entry Placeholder="First name" Text=""   />
+                    <Entry Placeholder="Last name" Text=""   />
+
+                    <Button Text="Register" Clicked="Register_Clicked" />
+                    <Button Text="Cancel">
+                        <Button.Triggers>
+                            <EventTrigger Event="Clicked">
+                                <triggers:SwitchLayout SourceElement="stReg"
+                                                                      TargetElement="stLog"
+                                                                      Direction="Left" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </StackLayout>
+                <StackLayout x:Name="stForgotPass" 
+                             Grid.Row="1" Grid.Column="0" 
+                             IsVisible="False"
+                             Padding="20,20,20,20"
+                >
+                    <Entry Placeholder="Email"
+                           Text=""   />
+                    <Button Text="Send email" Clicked="ForgetPass_Clicked"/>
+                    <Button Text="Cancel">
+                        <Button.Triggers>
+                            <EventTrigger Event="Clicked">
+                                <triggers:SwitchLayout SourceElement="stForgotPass"
+                                                                      TargetElement="stLog"
+                                                                      Direction="Left" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </StackLayout>
+                <StackLayout x:Name="stChangePass"
+                             Grid.Row="1" Grid.Column="0"
+                             IsVisible="False"
+                             Padding="20,20,20,20"
+                >
+                    <Entry Placeholder="Old password"
+                           Text="" 
+                           IsPassword="True"  />
+                    <Entry Placeholder="New password" 
+                           Text="" 
+                           IsPassword="True"  />
+                    <Entry Placeholder="Confirm password" 
+                           Text="" 
+                           IsPassword="True"  />
+                    <Button Text="OK" Clicked="ChangePass_Clicked"/>
+                    <Button Text="Cancel">
+                        <Button.Triggers>
+                            <EventTrigger Event="Clicked">
+                                <triggers:SwitchLayout SourceElement="stChangePass" 
+                                                                      TargetElement="stLog" 
+                                                                      Direction="Left" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
